@@ -42,7 +42,8 @@ Full narrative (purpose of every folder, user steps, migration triggers):
 | Path | Purpose |
 |------|---------|
 | `.meta/pipeline/` | Scratch for pipeline intermediates (not customer deliverables) |
-| `.archive/` | Superseded project copies (spoke); not a publishing target |
+| `.archive/` | Superseded project copies (spoke); not a publishing target; excluded from indexing |
+| `roadmap/` | Hub/spoke roadmap & architecture scratch; **excluded from indexing and agent processing** (see `.cursorignore`, `boundary.forbidden_paths`) — not scanned by `@structure-indexer` |
 
 ## Migration rules (when a document moves)
 

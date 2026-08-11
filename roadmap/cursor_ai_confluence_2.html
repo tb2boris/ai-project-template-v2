@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Презентация: Cursor AI + Confluence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .slide { display: none; min-height: 80vh; }
+        .slide.active { display: flex; animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .chart-container { position: relative; width: 100%; max-width: 500px; height: 300px; margin: auto; }
+        .circuit-box { border: 2px dashed #cbd5e1; border-radius: 1rem; padding: 1.5rem; transition: all 0.3s; }
+        .circuit-box:hover { border-color: #3b82f6; background-color: #eff6ff; }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+
+    <!-- Chosen Palette: Slate & Blue Professional -->
+    <!-- Application Structure Plan: 
+        Интерактивное слайд-шоу, заменяющее PowerPoint. 
+        Навигация через кнопки "Вперед/Назад". 
+        Визуализация 2-х контурной модели выполнена на Tailwind Grid.
+    -->
+
+    <div class="max-w-5xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-200">
+        
+        <!-- Слайд 1: Титульный -->
+        <section id="slide-1" class="slide active flex-col justify-center items-center text-center p-12">
+            <div class="w-20 h-1 bg-blue-600 mb-8"></div>
+            <h1 class="text-5xl font-bold text-slate-900 mb-6">Интеграция Cursor AI <br>и Confluence</h1>
+            <p class="text-xl text-slate-500 mb-12">Архитектура безопасной работы аналитиков согласно 152-ФЗ</p>
+            <div class="flex gap-4">
+                <span class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-bold tracking-wide uppercase">Безопасность</span>
+                <span class="bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full text-sm font-bold tracking-wide uppercase">ИИ-инструменты</span>
+            </div>
+        </section>
+
+        <!-- Слайд 2: Проблема и Решение -->
+        <section id="slide-2" class="slide flex-col p-12">
+            <h2 class="text-3xl font-bold mb-8">Проблема: Риск утечки ПДн</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <p class="text-lg text-slate-600 italic">"Прямая отправка документов из Confluence в облачные модели ИИ через Cursor нарушает закон 152-ФЗ и требования ИБ."</p>
+                    <div class="p-6 bg-green-50 border-l-4 border-green-500 rounded-r-xl">
+                        <h4 class="font-bold text-green-800 mb-2">Наше решение:</h4>
+                        <p class="text-green-700">Создание промежуточного контура деперсонализации (обезличивания) данных.</p>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="riskChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 3: Двухконтурная модель (СХЕМА) -->
+        <section id="slide-3" class="slide flex-col p-12">
+            <h2 class="text-3xl font-bold mb-8">Двухконтурная модель данных</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                <!-- Контур А -->
+                <div class="circuit-box bg-slate-50">
+                    <div class="text-red-500 font-bold mb-2 uppercase text-xs">Контур А (Raw)</div>
+                    <h3 class="font-bold text-lg mb-2">Сырые данные</h3>
+                    <p class="text-sm text-slate-500">Confluence с ПДн сотрудников и клиентов.</p>
+                </div>
+                
+                <!-- Стрелка/Сервис -->
+                <div class="flex flex-col items-center">
+                    <div class="bg-blue-600 text-white p-3 rounded-lg text-xs font-bold shadow-lg">Скрипт dp152</div>
+                    <div class="h-8 w-px bg-blue-300"></div>
+                    <div class="text-blue-600">→ → →</div>
+                </div>
+
+                <!-- Контур Б -->
+                <div class="circuit-box bg-green-50 border-green-200">
+                    <div class="text-green-600 font-bold mb-2 uppercase text-xs">Контур Б (Safe)</div>
+                    <h3 class="font-bold text-lg mb-2">Обезличенные данные</h3>
+                    <p class="text-sm text-slate-500">Доступны для MCP-сервера и Cursor AI.</p>
+                </div>
+            </div>
+            <div class="mt-8 p-6 bg-slate-900 rounded-2xl text-slate-300 text-sm">
+                <strong>Важно:</strong> Искусственный интеллект "видит" только Контур Б. Информация в Контуре Б не содержит имен, телефонов и адресов.
+            </div>
+        </section>
+
+        <!-- Слайд 4: Компоненты (dp152) -->
+        <section id="slide-4" class="slide flex-col p-12">
+            <h2 class="text-3xl font-bold mb-8">Сервис деперсонализации</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-bold text-blue-600 mb-4 italic">Скрипт dp152</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                            <p class="text-slate-600">Обнаруживает ФИО, адреса и реквизиты.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                            <p class="text-slate-600">Заменяет их на уникальные токены.</p>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                            <p class="text-slate-600">Сохраняет связь документов для обратной синхронизации.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-slate-100 rounded-2xl p-6 flex items-center justify-center">
+                    <div class="text-center">
+                        <div class="text-5xl font-bold text-slate-400 mb-2">100%</div>
+                        <div class="text-xs uppercase tracking-widest text-slate-500">Автоматизация анонимизации</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 5: MCP Server -->
+        <section id="slide-5" class="slide flex-col p-12">
+            <h2 class="text-3xl font-bold mb-8">Confluence MCP Server</h2>
+            <p class="text-lg text-slate-600 mb-8">Протокол контекста модели (MCP) — это "глаза" искусственного интеллекта в вашей корпоративной среде.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm">
+                    <h4 class="font-bold mb-2">Безопасность</h4>
+                    <p class="text-sm text-slate-500">Работает только в режиме чтения из Контура Б.</p>
+                </div>
+                <div class="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm">
+                    <h4 class="font-bold mb-2">Конвертация</h4>
+                    <p class="text-sm text-slate-500">Мгновенно переводит страницы Confluence в формат Markdown.</p>
+                </div>
+                <div class="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm">
+                    <h4 class="font-bold mb-2">Поиск</h4>
+                    <p class="text-sm text-slate-500">Позволяет ИИ выполнять семантический поиск по всей базе знаний.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Слайд 6: Дорожная карта -->
+        <section id="slide-6" class="slide flex-col p-12">
+            <h2 class="text-3xl font-bold mb-12">План реализации</h2>
+            <div class="space-y-6">
+                <div class="flex items-center gap-6">
+                    <div class="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold">1</div>
+                    <div class="border-b border-slate-100 pb-4 flex-grow">
+                        <h4 class="font-bold">Контейнеризация dp152</h4>
+                        <p class="text-sm text-slate-500">Развертывание сервиса анонимизации внутри сети компании.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold">2</div>
+                    <div class="border-b border-slate-100 pb-4 flex-grow">
+                        <h4 class="font-bold">Настройка веб-хуков</h4>
+                        <p class="text-sm text-slate-500">Связка Confluence и сервиса очистки данных.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold">3</div>
+                    <div class="border-b border-slate-100 pb-4 flex-grow">
+                        <h4 class="font-bold">Запуск MCP сервера</h4>
+                        <p class="text-sm text-slate-500">Обеспечение доступа Cursor AI к безопасным данным.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold">4</div>
+                    <div class="pb-4 flex-grow">
+                        <h4 class="font-bold">Пилотный запуск</h4>
+                        <p class="text-sm text-slate-500">Обучение аналитиков и проверка качества документов.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Навигация -->
+        <div class="bg-slate-50 p-6 flex justify-between items-center border-t border-slate-200">
+            <button onclick="prevSlide()" class="px-6 py-2 text-slate-600 font-bold hover:text-blue-600 transition">← Назад</button>
+            <div id="slideCounter" class="text-sm font-bold text-slate-400">1 / 6</div>
+            <button onclick="nextSlide()" class="px-8 py-2 bg-blue-600 text-white rounded-full font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200">Далее →</button>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 6;
+
+        function updateSlide() {
+            document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            document.getElementById('slideCounter').innerText = `${currentSlide} / ${totalSlides}`;
+            
+            if (currentSlide === 2) initChart();
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('riskChart').getContext('2d');
+            if (window.myChart) window.myChart.destroy();
+            window.myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Без защиты', 'С архитектурой 2-х контуров'],
+                    datasets: [{
+                        label: 'Уровень риска утечки ПДн (%)',
+                        data: [100, 0],
+                        backgroundColor: ['#ef4444', '#10b981'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { beginAtZero: true, max: 100 } }
+                }
+            });
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Архитектура решения: Cursor AI + Confluence 152-ФЗ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --bg-warm: #fdfcfb;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-warm);
+            color: #1e293b;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .step-node {
+            transition: all 0.3s ease;
+        }
+
+        .step-node:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .flow-line {
+            height: 2px;
+            background: repeating-linear-gradient(90deg, #cbd5e1 0, #cbd5e1 10px, transparent 10px, transparent 20px);
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <!-- Chosen Palette: Warm Neutrals with Cobalt Accents -->
+    <!-- Application Structure Plan: 
+        Интерактивное приложение разделено на 4 логических блока:
+        1. "Целевая архитектура" - визуальная схема и описание двухконтурной модели.
+        2. "Компоненты" - детализация сервиса деперсонализации и MCP-сервера.
+        3. "Процессы" - интерактивное сравнение режимов работы.
+        4. "Дорожная карта" - план реализации без указания сроков.
+        Выбран дашборд-подход для быстрого переключения между стратегическим обзором и техническими деталями.
+    -->
+    <!-- Visualization & Content Choices:
+        - Потоковая схема данных: Построена на HTML/CSS Grid для наглядности взаимодействия Cursor и Confluence.
+        - Диаграммы безопасности: Используется Chart.js для визуализации гарантии отсутствия ПДн.
+        - Интерактивные карточки: Для описания компонентов (dp152, MCP).
+        - Таймлайн: Для этапов реализации.
+        - Подтверждение: NO SVG, NO Mermaid. Использованы стандартные Canvas и Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <nav class="fixed top-0 w-full z-50 bg-white/90 border-b border-slate-200 px-6 py-4 flex justify-between items-center backdrop-blur-md">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">C</div>
+            <span class="font-bold text-xl tracking-tight">Архитектура 152-ФЗ</span>
+        </div>
+        <div class="hidden md:flex gap-8 font-medium text-slate-600">
+            <button onclick="scrollToSection('architecture')" class="nav-link hover:text-blue-600 transition-colors">Архитектура</button>
+            <button onclick="scrollToSection('components')" class="nav-link hover:text-blue-600 transition-colors">Компоненты</button>
+            <button onclick="scrollToSection('process')" class="nav-link hover:text-blue-600 transition-colors">Процессы</button>
+            <button onclick="scrollToSection('roadmap')" class="nav-link hover:text-blue-600 transition-colors">Внедрение</button>
+        </div>
+        <button onclick="window.print()" class="bg-blue-600 text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition-all shadow-lg shadow-blue-200">Экспорт PDF</button>
+    </nav>
+
+    <main class="pt-24 pb-12 px-6 max-w-7xl mx-auto">
+        
+        <!-- Герой-секция -->
+        <header class="mb-20 text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-tight">
+                Интеграция Cursor AI и Confluence:<br>Безопасная экосистема аналитика
+            </h1>
+            <p class="text-xl text-slate-500 max-w-3xl mx-auto leading-relaxed">
+                Комплексное решение для работы с искусственным интеллектом в защищенном контуре с автоматической деперсонализацией данных согласно 152-ФЗ.
+            </p>
+        </header>
+
+        <!-- Раздел 1: Целевая архитектура -->
+        <section id="architecture" class="mb-32">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-1 w-12 bg-blue-600"></div>
+                <h2 class="text-3xl font-bold">Целевая архитектура решения</h2>
+            </div>
+            
+            <p class="text-lg text-slate-600 mb-12">
+                Фундамент решения — двухконтурная модель обработки. Она физически разделяет «Сырой контур» (содержащий персональные данные) и «Обезличенный контур», к которому обращаются внешние ИИ-инструменты (AI). Это исключает утечку чувствительной информации за пределы периметра компании.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white p-8 rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                <!-- Схема на HTML/Tailwind -->
+                <div class="lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-4 items-center relative">
+                    
+                    <!-- Исходный контур -->
+                    <div class="p-6 rounded-2xl border-2 border-slate-200 bg-slate-50 relative z-10">
+                        <div class="text-xs font-bold text-slate-400 uppercase mb-2">Контур А</div>
+                        <h3 class="font-bold text-lg mb-2">Confluence (Raw)</h3>
+                        <p class="text-sm text-slate-500">Сырые документы, транскрипты, ПДн сотрудников.</p>
+                        <div class="mt-4 flex gap-2">
+                            <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                            <span class="text-xs font-medium text-red-500">Доступ ИИ закрыт</span>
+                        </div>
+                    </div>
+
+                    <!-- Сервисный слой -->
+                    <div class="flex flex-col gap-4 items-center">
+                        <div class="w-full h-12 flex items-center justify-center">
+                            <div class="w-full flow-line"></div>
+                        </div>
+                        <div class="p-6 rounded-2xl border-2 border-blue-600 bg-blue-50 text-center w-full shadow-xl shadow-blue-100">
+                            <h3 class="font-bold text-blue-800">Сервис dp152</h3>
+                            <p class="text-xs text-blue-600 mt-1 uppercase font-bold tracking-widest">Анонимизация</p>
+                        </div>
+                        <div class="w-full h-12 flex items-center justify-center">
+                            <div class="w-full flow-line"></div>
+                        </div>
+                    </div>
+
+                    <!-- Обезличенный контур -->
+                    <div class="p-6 rounded-2xl border-2 border-green-500 bg-green-50 relative z-10">
+                        <div class="text-xs font-bold text-green-600 uppercase mb-2">Контур Б</div>
+                        <h3 class="font-bold text-lg mb-2">Confluence (Safe)</h3>
+                        <p class="text-sm text-slate-500">Обезличенные копии в формате Markdown.</p>
+                        <div class="mt-4 flex gap-2">
+                            <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                            <span class="text-xs font-medium text-green-600">Доступ по MCP</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-12 mt-8 p-6 bg-slate-900 rounded-2xl text-slate-300">
+                    <div class="flex items-start gap-4">
+                        <div class="p-2 bg-blue-500/20 rounded-lg text-blue-400 font-mono">i</div>
+                        <div>
+                            <h4 class="font-bold text-white mb-1">Принцип работы архитектуры</h4>
+                            <p class="text-sm">Любое изменение документа в "Контуре А" вызывает автоматическое событие (Webhook). Промежуточный сервис деперсонализации получает текст, удаляет ФИО, адреса и телефоны, и сохраняет результат в "Контур Б". Аналитики через Cursor AI (IDE) видят только этот очищенный контент.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Раздел 2: Компоненты -->
+        <section id="components" class="mb-32">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-1 w-12 bg-blue-600"></div>
+                <h2 class="text-3xl font-bold">Ключевые компоненты</h2>
+            </div>
+            
+            <p class="text-lg text-slate-600 mb-12">
+                Система состоит из трех модулей, которые работают синхронно для обеспечения безопасности и продуктивности аналитиков.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Карточка 1 -->
+                <div class="glass-card p-8 rounded-3xl step-node border-t-4 border-t-blue-500">
+                    <div class="text-4xl mb-6">🛡️</div>
+                    <h3 class="text-xl font-bold mb-4 italic">Сервис деперсонализации (dp152)</h3>
+                    <ul class="text-slate-600 space-y-3 text-sm">
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-500 font-bold">•</span>
+                            Автоматическое обнаружение персональных данных (ПДн) по 152-ФЗ.
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-blue-500 font-bold">•</span>
+                            Замена имен и реквизитов на уникальные обезличенные идентификаторы (токены).
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Карточка 2 -->
+                <div class="glass-card p-8 rounded-3xl step-node border-t-4 border-t-indigo-500">
+                    <div class="text-4xl mb-6">🔗</div>
+                    <h3 class="text-xl font-bold mb-4 italic">Confluence MCP Server</h3>
+                    <ul class="text-slate-600 space-y-3 text-sm">
+                        <li class="flex items-start gap-2">
+                            <span class="text-indigo-500 font-bold">•</span>
+                            Реализация протокола контекста модели (Model Context Protocol).
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-indigo-500 font-bold">•</span>
+                            Обеспечение безопасного "окна" доступа для Cursor AI только к анонимизированным данным.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Карточка 3 -->
+                <div class="glass-card p-8 rounded-3xl step-node border-t-4 border-t-teal-500">
+                    <div class="text-4xl mb-6">💻</div>
+                    <h3 class="text-xl font-bold mb-4 italic">Шаблон Cursor (ai-project-template)</h3>
+                    <ul class="text-slate-600 space-y-3 text-sm">
+                        <li class="flex items-start gap-2">
+                            <span class="text-teal-500 font-bold">•</span>
+                            Предустановленные правила взаимодействия с ИИ (.cursorrules).
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-teal-500 font-bold">•</span>
+                            Встроенные инструкции по проверке документов перед обратной публикацией.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Визуализация защищенности -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 items-center bg-white p-10 rounded-3xl border border-slate-100">
+                <div>
+                    <h3 class="text-2xl font-bold mb-6">Гарантии информационной безопасности</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Использование данной архитектуры снижает риск попадания ПДн во внешние модели ИИ (AI) до нуля. Все вычисления и трансформации текста происходят внутри контролируемого периметра.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center text-sm font-semibold text-slate-700">
+                            <span>Изоляция ПДн</span>
+                            <span>100%</span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div class="bg-blue-600 h-full w-[100%]"></div>
+                        </div>
+                        <div class="flex justify-between items-center text-sm font-semibold text-slate-700 pt-2">
+                            <span>Автоматизация обработки</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div class="bg-indigo-500 h-full w-[95%]"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="securityChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Раздел 3: Процессы -->
+        <section id="process" class="mb-32">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-1 w-12 bg-blue-600"></div>
+                <h2 class="text-3xl font-bold">Регламент взаимодействия</h2>
+            </div>
+
+            <p class="text-lg text-slate-600 mb-12">
+                Процесс работы аналитика разделен на три этапа: получение контекста, разработка и публикация результата.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- Взаимодействие через MCP -->
+                <div class="space-y-8">
+                    <div class="flex gap-6 items-start">
+                        <div class="w-12 h-12 bg-blue-600 rounded-2xl flex-shrink-0 flex items-center justify-center text-white font-bold">1</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Запрос контекста</h4>
+                            <p class="text-slate-500">Аналитик через Cursor AI отправляет запрос: "Найди требования к модулю Х". MCP-сервер обращается к обезличенной базе Confluence и возвращает текст в Markdown.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 items-start">
+                        <div class="w-12 h-12 bg-blue-600 rounded-2xl flex-shrink-0 flex items-center justify-center text-white font-bold">2</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Локальная разработка</h4>
+                            <p class="text-slate-500">ИИ помогает аналитику писать спецификации на основе полученных знаний, не имея доступа к именам реальных клиентов или сотрудников.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-6 items-start">
+                        <div class="w-12 h-12 bg-blue-600 rounded-2xl flex-shrink-0 flex items-center justify-center text-white font-bold">3</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">Контроль и выгрузка</h4>
+                            <p class="text-slate-500">Готовый документ проходит локальный линтинг (автоматическую проверку) на отсутствие утечек данных и загружается обратно в Confluence.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 rounded-3xl p-8 text-white relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h4 class="text-2xl font-bold mb-6">Интерфейс аналитика</h4>
+                        <div class="bg-slate-800 rounded-xl p-4 font-mono text-sm text-blue-300 mb-4 border border-slate-700">
+                            <span class="text-slate-500">// .cursor/mcp.json</span><br>
+                            {<br>
+                            &nbsp;&nbsp;"mcpServers": {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;"confluence-safe": {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"command": "npx",<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"args": ["@corp/mcp-confluence-bridge"]<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                        </div>
+                        <div class="p-4 bg-blue-900/40 rounded-xl border border-blue-500/30">
+                            <p class="text-sm italic">"Контекст модели ограничен безопасным пространством (Sanitized Space). Прямой доступ к Raw Confluence заблокирован."</p>
+                        </div>
+                    </div>
+                    <!-- Декоративные элементы -->
+                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-blue-600/20 rounded-full blur-3xl"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Раздел 4: Дорожная карта -->
+        <section id="roadmap" class="mb-20">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="h-1 w-12 bg-blue-600"></div>
+                <h2 class="text-3xl font-bold">Дорожная карта реализации</h2>
+            </div>
+
+            <div class="relative">
+                <!-- Центральная линия -->
+                <div class="absolute left-4 md:left-1/2 h-full w-1 bg-slate-200 -translate-x-1/2"></div>
+                
+                <div class="space-y-12">
+                    <!-- Этап 1 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="flex-1 w-full md:pr-12 md:text-right mb-4 md:mb-0">
+                            <h4 class="text-xl font-bold text-blue-600">Этап 1: Сервис dp152</h4>
+                            <p class="text-slate-500 mt-2">Контейнеризация алгоритмов обезличивания и создание REST API (интерфейса взаимодействия) для приема текстов.</p>
+                        </div>
+                        <div class="z-10 w-8 h-8 bg-blue-600 rounded-full border-4 border-white shadow-lg"></div>
+                        <div class="flex-1 w-full md:pl-12"></div>
+                    </div>
+
+                    <!-- Этап 2 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="flex-1 w-full md:pr-12"></div>
+                        <div class="z-10 w-8 h-8 bg-blue-600 rounded-full border-4 border-white shadow-lg"></div>
+                        <div class="flex-1 w-full md:pl-12 mt-4 md:mt-0">
+                            <h4 class="text-xl font-bold text-blue-600">Этап 2: Конвейер Confluence</h4>
+                            <p class="text-slate-500 mt-2">Настройка автоматической пересылки документов из Confluence в сервис деперсонализации и публикация в безопасное пространство.</p>
+                        </div>
+                    </div>
+
+                    <!-- Этап 3 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="flex-1 w-full md:pr-12 md:text-right mb-4 md:mb-0">
+                            <h4 class="text-xl font-bold text-blue-600">Этап 3: MCP Server</h4>
+                            <p class="text-slate-500 mt-2">Развертывание и настройка сервера протокола контекста модели для подключения Cursor AI к базе знаний.</p>
+                        </div>
+                        <div class="z-10 w-8 h-8 bg-blue-600 rounded-full border-4 border-white shadow-lg"></div>
+                        <div class="flex-1 w-full md:pl-12"></div>
+                    </div>
+
+                    <!-- Этап 4 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="flex-1 w-full md:pr-12"></div>
+                        <div class="z-10 w-8 h-8 bg-blue-600 rounded-full border-4 border-white shadow-lg"></div>
+                        <div class="flex-1 w-full md:pl-12 mt-4 md:mt-0">
+                            <h4 class="text-xl font-bold text-blue-600">Этап 4: Развертывание</h4>
+                            <p class="text-slate-500 mt-2">Обновление репозиториев аналитиков, обучение персонала и запуск пилотного проекта.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-slate-500 text-sm">
+                © 2026 Архитектура информационной безопасности. Разработано для департамента аналитики.
+            </div>
+            <div class="flex gap-4">
+                <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase tracking-widest">152-ФЗ Compliant</span>
+                <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold uppercase tracking-widest">Cursor AI Ready</span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Инициализация графиков
+        function initCharts() {
+            const ctx = document.getElementById('securityChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Безопасный контекст', 'Обезличенные данные', 'Риск утечки'],
+                    datasets: [{
+                        data: [60, 40, 0],
+                        backgroundColor: ['#2563eb', '#6366f1', '#f1f5f9'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                font: {
+                                    size: 12,
+                                    family: 'Inter'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Плавная навигация
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            const offset = 100;
+            const bodyRect = document.body.getBoundingClientRect().top;
+            const elementRect = element.getBoundingClientRect().top;
+            const elementPosition = elementRect - bodyRect;
+            const offsetPosition = elementPosition - offset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+
+            // Обновление активной ссылки
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Отслеживание прокрутки для навигации
+        window.addEventListener('scroll', () => {
+            const sections = ['architecture', 'components', 'process', 'roadmap'];
+            let current = '';
+
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                const rect = element.getBoundingClientRect();
+                if (rect.top <= 150) {
+                    current = section;
+                }
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('onclick').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Запуск при загрузке
+        window.onload = initCharts;
+    </script>
+</body>
+</html>

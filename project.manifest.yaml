@@ -128,3 +128,5 @@ boundary:
   forbidden_paths:
     - ../_work
     - ../other-projects
+    - .archive
+    - roadmap

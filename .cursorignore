@@ -1,0 +1,4 @@
+# Exclude from Cursor indexing / codebase context (same class as .archive)
+
+.archive/
+roadmap/

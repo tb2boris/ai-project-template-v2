@@ -1,0 +1,17 @@
+---
+description: Tests as contract — TDD where applicable, CI gate
+globs:
+  - "engineering/**"
+  - "**/*test*"
+  - "**/*spec*"
+alwaysApply: false
+---
+
+# Dev tests
+
+- New behavior → tests in the same change set when feasible.
+- Treat tests as contract for public APIs and critical paths.
+- Do not disable or skip tests to make CI green without documented reason.
+- Prefer existing test framework and patterns in `engineering/src/`.
+
+When generating from OpenAPI/spec, include unit tests for DTO validation and main branches.

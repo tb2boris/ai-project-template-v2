@@ -1,0 +1,101 @@
+---
+description: Russian technical writing style, meeting alignment, preambles, and edit checklist
+globs:
+  - "docs/02-domains/**/*.md"
+  - "docs/03-deliverables/**/*.md"
+  - "docs/04-registry/**/*.md"
+  - "docs/05-communications/**/*.md"
+  - "docs/06-quality/**/*.md"
+  - "engineering/**/*.md"
+---
+
+# Russian technical writing
+
+Applies when creating or editing Russian text in project documents. **Scope** (full vs light mode): see **010-project-core** and manifest `scope_matrix`.
+
+**Full mode** — deliverables, domain drafts, registry (except raw indexes), quality docs, engineering markdown.
+
+**Light mode** — `docs/05-communications/**` transcripts/protocols: fix decisions and clarity only; no preamble requirements on raw transcript.
+
+**Excluded** — `docs/01-intake/**` (unless user explicitly asks), normative library contents, `**/file-list.md`.
+
+When **creating** or **substantially editing** scoped `.md` in full mode, apply all sections below. Do not consider the edit complete until the checklist passes.
+
+---
+
+## Bullet lists and tables
+
+For **unnumbered (bullet) lists**:
+
+1. **Intro paragraph** — the paragraph immediately before a bullet list **must end with a colon** (`:`).
+
+2. **List items**
+   - Each item **starts with a lowercase letter** (Russian строчная).
+   - Each item **except the last** ends with a **semicolon** (`;`).
+   - The **last** item ends with a **period** (`.`).
+   - **No semicolon inside a list item** — use comma with conjunction or a dash.
+   - **No period inside a list item** except as the last item's final period.
+
+3. **Tables** — in cells, **do not use a semicolon** to separate parts; use periods, commas, or dashes.
+
+---
+
+## Parentheses
+
+**Prefer no parentheses** when commas or dashes work.
+
+- Integrate clarifications with **commas** or **dashes** (тире), or rephrase.
+- Use parentheses only when clearly needed (normative refs, optional cross-refs).
+
+**No semicolon inside a sentence** — comma or dash.
+
+---
+
+## Russian style and technical register
+
+- Correct grammar and clarity; every sentence has an explicit subject.
+- **Natural phrasing** — avoid calques and unnatural word order.
+- Formal technical tone; **consistent terminology** from glossary.
+- **One place, one rule** — avoid redundant enumerations.
+
+---
+
+## Section preambles (full mode only)
+
+For text immediately after a section heading:
+
+1. State **purpose** of the section.
+2. Briefly state **what it contains** — not only subsection numbers.
+
+One paragraph, at most two.
+
+---
+
+## Meeting has priority
+
+When aligning a **project document** with a meeting transcript (see **010-project-core**):
+
+1. Extract all decisions on the scope.
+2. Update **every affected place** — intro, tables, all subsections.
+3. Verify **cross-consistency** across sections.
+4. Apply style rules to all changed text.
+
+Do not leave consistency checks for the user.
+
+---
+
+## Duplication check
+
+- If the same rule appears twice without new meaning, keep one place and cross-reference.
+- Apply style to all added/modified text and adjacent paragraphs.
+
+---
+
+## Before replying: checklist
+
+1. **Semicolon:** Any `;` inside a sentence (not list-item delimiter)? → fix.
+2. **Parentheses:** Needed only? → comma/dash otherwise.
+3. **Duplication:** Intro repeats subsection content? → pointer.
+4. **Preamble:** Purpose + brief content present?
+
+Re-run until pass.

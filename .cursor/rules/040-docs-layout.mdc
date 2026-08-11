@@ -1,0 +1,81 @@
+---
+description: Documentation structure — canonical docs layout, ownership, and migration between sections
+globs:
+  - "docs/**"
+  - "engineering/**"
+---
+
+# Documentation structure
+
+Resolve concrete paths from **`project.manifest.yaml`** → `paths.*`. Default layout (v1.0).
+
+Full narrative (purpose of every folder, user steps, migration triggers):  
+`platform/samples/document-lifecycle/STRUCTURE-AND-DOCUMENT-WORKFLOW.md`.
+
+## docs/
+
+| Segment | Purpose | Agent edit? |
+|---------|---------|-------------|
+| `00-knowledge/` | Knowledge base: glossary drafts area + normative library | glossary: yes (drafts); normative contents: **no** |
+| `00-knowledge/glossary/` | Working glossary copies / local term sheets (canonical often in registry) | yes |
+| `00-knowledge/normative/` | Standards library (file add/remove OK; **do not rewrite** body text) | add/remove only |
+| `00-knowledge/normative/_derived/` | Optional regenerable indexes from binary normative (docx→md/json) | regenerate only |
+| `01-intake/` | **Immutable** customer intake package | **no** (reference only) |
+| `02-domains/<domain>/` | Domain work area | yes |
+| `02-domains/<domain>/drafts/` | Working drafts before approval | yes |
+| `03-deliverables/` | Approved customer-facing results | yes (replace via controlled publish) |
+| `04-registry/` | File registry, compliance reports, gaps, meetings registry, terminology | yes |
+| `05-communications/` | Meetings: media, transcripts, protocols | yes (ingest + process) |
+| `06-quality/` | Acceptance criteria, eval golden sets | yes |
+
+## engineering/
+
+| Segment | Purpose |
+|---------|---------|
+| `integrations/` | External system exchange descriptions |
+| `contracts/` | API specs (OpenAPI, etc.) |
+| `adr/` | Architecture decision records |
+| `src/` | Source code when repo includes development |
+
+## Temporary / non-deliverable
+
+| Path | Purpose |
+|------|---------|
+| `.meta/pipeline/` | Scratch for pipeline intermediates (not customer deliverables) |
+| `.archive/` | Superseded project copies (spoke); not a publishing target |
+
+## Migration rules (when a document moves)
+
+1. **Intake → Domain draft**  
+   Trigger: BA starts analysis/writing from customer materials.  
+   Action: **copy or derive** into `docs/02-domains/<domain>/drafts/` — **never move/delete** intake originals.
+
+2. **Communications → Domain draft / Requirements**  
+   Trigger: meeting decisions affect requirements or design.  
+   Action: keep transcript/protocol in `05-communications/`; write derived text into domain `drafts/` (skill `requirements-from-meeting`).
+
+3. **Domain draft → Deliverable**  
+   Trigger: human approval (BA/PM) after at least one guard pass when compliance enabled (`compliance-check-pipeline` or individual guards).  
+   Action: publish copy/final into `docs/03-deliverables/` (optionally keep draft history in domain folder).
+
+4. **Draft/Deliverable → Registry artifacts**  
+   Trigger: compliance gaps, terminology updates, meeting task exports.  
+   Action: write reports/gaps/terms under `docs/04-registry/**` — do not treat registry as the customer PDF/MD deliverable unless the deliverable *is* a register.
+
+5. **Engineering ADR / contracts**  
+   Trigger: technical decision or API freeze.  
+   Action: create/update under `engineering/adr/` or `engineering/contracts/`; link from deliverables if customer-facing summary is required.
+
+6. **Supersede**  
+   Trigger: major rewrite replaces an approved file.  
+   Action: move previous deliverable to `.archive/` (spoke policy) or version in place; update `file-list.md` / `file-registry.md` via `@structure-indexer`.
+
+## Conventions
+
+- New **drafts** → `docs/02-domains/<domain>/drafts/`.
+- New **approved** docs → `docs/03-deliverables/` (or domain subfolder under deliverables per team convention).
+- Customer intake stays in `docs/01-intake/` — reference only.
+- Each major `docs/*` directory keeps `README.md` (purpose) and `file-list.md` (index; maintained by `@structure-indexer`).
+- Scope for style and compliance: **010-project-core** + manifest `scope_matrix`.
+
+Save paths relative to workspace root in all references.

@@ -1,0 +1,28 @@
+---
+description: Чек-лист инициализации spoke-проекта после клонирования шаблона
+globs:
+  - "**"
+alwaysApply: false
+---
+
+# Чек-лист инициализации проекта
+
+Выполнять при настройке **нового spoke** из шаблона (PM/аналитик).
+
+## Шаги
+
+1. [ ] Скопировать/переименовать repo; обновить `README.md`.
+2. [ ] Заполнить **`project.manifest.yaml`** (обязательные поля по schema).
+3. [ ] Разместить intake заказчика в `docs/01-intake/` (ТЗ, устав, договор).
+4. [ ] Добавить нормативку в `docs/00-knowledge/normative/` при необходимости.
+5. [ ] Создать черновик глоссария из ТЗ → `terminology.canonical_file`.
+6. [ ] Запустить **`project-init-pipeline`** или `@structure-indexer` → `file-registry.md`.
+7. [ ] Настроить `.cursor/mcp.json` по `platform/deployment/AI-contour-setup.md` и политике ИБ.
+8. [ ] Опционально: установить domain-packs из `platform/domain-packs/`.
+9. [ ] Зафиксировать дату init и контакт Champion в манифесте или `docs/04-registry/project-log.md`.
+
+Не запускать compliance и meeting pipelines до завершения шагов 2–5.
+
+Skill: **`project-init-pipeline`**.
+
+*Зеркало: `.cursor/rules/046-project-init-checklist.mdc`*

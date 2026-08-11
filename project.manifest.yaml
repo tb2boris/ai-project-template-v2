@@ -1,0 +1,130 @@
+# Project manifest — fill when cloning this template for a new spoke project.
+# Schema: platform/project.manifest.schema.json
+
+manifest_version: "1.0"
+
+project:
+  id: example-project
+  name: "Example Project"
+  customer: "Customer Legal Name"
+  language: ru
+  maturity_level: crawl
+
+paths:
+  knowledge_base: docs/00-knowledge
+  normative: docs/00-knowledge/normative
+  glossary: docs/00-knowledge/glossary
+  intake: docs/01-intake
+  domains: docs/02-domains
+  deliverables: docs/03-deliverables
+  registry: docs/04-registry
+  communications: docs/05-communications
+  quality: docs/06-quality
+  engineering: engineering
+  integrations: engineering/integrations
+  contracts: engineering/contracts
+  adr: engineering/adr
+  src: engineering/src
+  tools: tools
+  file_registry: docs/04-registry/file-registry.md
+  gaps: docs/04-registry/gaps
+  compliance_reports: docs/04-registry/compliance-reports
+  meetings_registry: docs/04-registry/meetings
+  terminology_dir: docs/04-registry/terminology
+
+references:
+  primary_spec: docs/01-intake/specification.md
+  project_charter: docs/01-intake/charter.md
+  decisions_catalog: docs/01-intake/decisions/
+  optional_standards: []
+
+terminology:
+  enabled: true
+  canonical_file: docs/04-registry/terminology/terms.md
+  asr_mappings_file: docs/04-registry/terminology/asr-and-ui-canonical-mappings.md
+  spec_definitions_section: null
+
+compliance:
+  enabled: true
+  packs:
+    - id: GENERIC
+      description: Default compliance pack for any project
+      standards:
+        - docs/00-knowledge/normative/
+      spec_clauses: []
+      typical_paths:
+        - docs/02-domains/**/drafts/**
+        - docs/03-deliverables/**
+
+scope_matrix:
+  - path: docs/03-deliverables/**
+    role: approved_deliverables
+    editable: true
+    full_ru_style: true
+    normative_check: on_substantial_edit
+  - path: docs/02-domains/**/drafts/**
+    role: working_drafts
+    editable: true
+    full_ru_style: true
+    normative_check: on_substantial_edit
+  - path: docs/04-registry/**
+    role: registers
+    editable: true
+    full_ru_style: true
+    normative_check: on_substantial_edit
+  - path: docs/05-communications/**
+    role: meetings
+    editable: true
+    full_ru_style: light
+    normative_check: false
+  - path: docs/01-intake/**
+    role: customer_intake
+    editable: false
+    full_ru_style: false
+    normative_check: reference_only
+  - path: docs/00-knowledge/normative/**
+    role: normative_library
+    editable: false
+    full_ru_style: false
+    normative_check: search_only
+  - path: engineering/**
+    role: engineering
+    editable: true
+    full_ru_style: false
+    normative_check: false
+
+integrations:
+  mymeet:
+    enabled: true
+    mcp_server: mymeet
+    # API key via env MYMEET_API_KEY — see platform/deployment/mymeet-integration.md
+    export_paths:
+      imports: docs/05-communications/_imports/mymeet
+      transcripts: docs/05-communications/transcripts
+      media: docs/05-communications/media
+      meetings_registry: docs/04-registry/meetings
+  # Deprecated optional stub — do not enable for new spokes
+  vks:
+    enabled: false
+    base_url: null
+    export_paths:
+      transcripts: docs/05-communications/transcripts
+      media: docs/05-communications/media
+      meetings_registry: docs/04-registry/meetings
+  question_tracker:
+    enabled: false
+    registry_file: docs/04-registry/customer-questions.md
+
+meeting_tasks:
+  template_file: platform/templates/meeting-tasks.xlsx
+  columns_schema: platform/templates/meeting-tasks.columns.yaml
+  builder_script: tools/build_meeting_task_report_xlsx.py
+
+features:
+  domain_packs: []
+
+boundary:
+  workspace_only: true
+  forbidden_paths:
+    - ../_work
+    - ../other-projects

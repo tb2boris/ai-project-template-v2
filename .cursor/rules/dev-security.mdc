@@ -1,0 +1,16 @@
+---
+description: No secrets in repo; SAST awareness; safe logging
+globs:
+  - "**/*"
+alwaysApply: false
+---
+
+# Dev security
+
+- **Never** commit secrets, tokens, passwords, or private keys.
+- Use environment variables or approved secret stores; flag hardcoded credentials in review.
+- Be aware of injection, XSS, auth bypass in generated code.
+- Do not log PII or credentials.
+- Flag use of deprecated crypto or unsafe defaults.
+
+If secrets are found in working tree, warn user and do not replicate in new code.

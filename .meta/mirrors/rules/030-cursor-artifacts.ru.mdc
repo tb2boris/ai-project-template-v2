@@ -1,0 +1,30 @@
+---
+description: Язык артефактов — .cursor на английском; русские зеркала в .meta/mirrors
+globs:
+  - ".cursor/**"
+---
+
+# Языковая конвенция для артефактов .cursor
+
+Все определения и инструкции в **agents** (`.cursor/agents/*.md`), **plans** (`.cursor/plans/*.md`), **rules** (`.cursor/rules/*.mdc`) и **skills** (`.cursor/skills/*/SKILL.md`) пишутся **только на английском**. Не добавлять русский текст в эти файлы.
+
+## Русские зеркала
+
+При **создании** или **изменении** файла в `.cursor/agents/`, `.cursor/plans/`, `.cursor/rules/` или `.cursor/skills/*/SKILL.md` также **создавать или обновлять** русскую версию в **`.meta/mirrors/`**:
+
+| Основной файл (.cursor) | Русская копия |
+|-------------------------|---------------|
+| `.cursor/agents/<name>.md` | `.meta/mirrors/agents/<name>.ru.md` |
+| `.cursor/plans/<name>.md` | `.meta/mirrors/plans/<name>.ru.md` |
+| `.cursor/rules/<name>.mdc` | `.meta/mirrors/rules/<name>.ru.mdc` |
+| `.cursor/skills/<name>/SKILL.md` | `.meta/mirrors/skills/<name>.ru.md` |
+
+**Правила для русской копии:**
+
+- Та же структура каталогов под `.meta/mirrors/`.
+- Имя файла: `.ru` перед расширением.
+- Содержимое: полный эквивалент на русском (та же структура).
+
+**Не** хранить зеркала в `docs/` — это метаданные платформы, не deliverables проекта.
+
+*Зеркало: `.cursor/rules/030-cursor-artifacts.mdc`*

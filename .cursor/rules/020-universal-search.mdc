@@ -1,0 +1,16 @@
+---
+description: Conceptual search — synonyms and context, not only exact user wording
+globs:
+  - "**"
+alwaysApply: true
+---
+
+# Conceptual search in documentation
+
+When searching documentation by **meaning** (not a single keyword):
+
+- **Use request context:** the same concept may appear under different terms (synonyms, abbreviations, parallel phrasing). Search with several suitable variants, not only the user's exact phrase.
+- **Do not rely on one pattern:** for conceptual questions, run 2–3 search passes (original wording plus variants derived from context and glossary) so documents are not missed because of different terminology.
+- **Scope:** prefer `docs/**` and paths from manifest; include `docs/05-communications/` when the question relates to meetings.
+
+Do not list project-specific synonyms in this rule — derive them from the query, **`terminology.canonical_file`**, and domain context.

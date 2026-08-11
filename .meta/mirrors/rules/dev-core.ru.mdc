@@ -1,0 +1,31 @@
+---
+description: Инженерный контур — README, ADR, OpenAPI; CI и границы автономии
+globs:
+  - "engineering/**"
+  - "src/**"
+alwaysApply: false
+---
+
+# Dev core (инженерный контур)
+
+## Источники контекста
+
+При работе в engineering:
+
+- Читать `engineering/README.md`, релевантные `engineering/adr/`, `engineering/contracts/` (OpenAPI и т.п.).
+- Согласовывать с `references.primary_spec` по функциональным требованиям.
+
+## Границы автономии
+
+- Agent может предлагать код, тесты и правки документации в рабочей ветке.
+- Agent **не должен** merge, push в защищённые ветки или deploy без одобрения человека.
+- Небольшие сфокусированные diff; следовать конвенциям проекта.
+
+## Результаты
+
+- Изменение API — обновление контракта в том же change set (см. **dev-docs-sync**).
+- Новые модули — обновить README или ADR при неочевидном поведении.
+
+Цепочка: Spec → implement → tests → CI → `@code-reviewer` → merge человеком.
+
+*Зеркало: `.cursor/rules/dev-core.mdc`*

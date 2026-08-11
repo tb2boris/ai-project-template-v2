@@ -1,0 +1,28 @@
+---
+description: Language convention — .cursor in English; Russian mirrors in .meta/mirrors
+globs:
+  - ".cursor/**"
+---
+
+# Language convention for .cursor artifacts
+
+All definitions and instructions in **agents** (`.cursor/agents/*.md`), **plans** (`.cursor/plans/*.md`), **rules** (`.cursor/rules/*.mdc`), and **skills** (`.cursor/skills/*/SKILL.md`) must be written in **English only**. Do not add Russian text inside these files.
+
+## Mirroring Russian copies
+
+Whenever you **create** or **modify** a file under `.cursor/agents/`, `.cursor/plans/`, `.cursor/rules/`, or `.cursor/skills/*/SKILL.md`, also **create or update** the corresponding Russian version under **`.meta/mirrors/`**:
+
+| Main file (.cursor) | Russian copy |
+|---------------------|--------------|
+| `.cursor/agents/<name>.md` | `.meta/mirrors/agents/<name>.ru.md` |
+| `.cursor/plans/<name>.md` | `.meta/mirrors/plans/<name>.ru.md` |
+| `.cursor/rules/<name>.mdc` | `.meta/mirrors/rules/<name>.ru.mdc` |
+| `.cursor/skills/<name>/SKILL.md` | `.meta/mirrors/skills/<name>.ru.md` |
+
+**Rules for the Russian copy:**
+
+- Same directory structure under `.meta/mirrors/`.
+- Filename: add `.ru` before the extension.
+- Content: full equivalent translated into Russian (same structure).
+
+Do **not** store mirror copies under `docs/` — they are platform metadata, not project deliverables.

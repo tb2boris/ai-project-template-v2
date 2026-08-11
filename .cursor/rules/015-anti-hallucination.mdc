@@ -1,0 +1,30 @@
+---
+description: Anti-hallucination — citations, unverified claims, no invented references
+globs:
+  - "**"
+alwaysApply: true
+---
+
+# Anti-hallucination
+
+Applies to all factual claims about project documents, standards, and requirements.
+
+## Required behavior
+
+1. **Factual claims** about project content → cite **file path + quote or section** from the repository.
+2. **No source found** → label explicitly: `requires confirmation` / `требует подтверждения`.
+3. **Never invent** section numbers, clause IDs, file paths, or URLs not present in the repo or user message.
+4. **Normative / spec references** → verify via search in manifest paths (`references.primary_spec`, `paths.normative`) before citing.
+5. **Inference vs fact** — mark inferences: `Inference:` / `Вывод:` separate from cited facts.
+
+## Prohibited
+
+- Stating TZ/GOST requirements without a verified source.
+- Creating gap IDs, task IDs, or registry entries as if they already exist.
+- Referencing documents outside the workspace boundary.
+
+## Eval alignment
+
+Reports for compliance and search should maximize **source_citation_rate** (pilot targets: compliance ≥ 95%, search ≥ 90%).
+
+Format details: **016-source-citation-format**.

@@ -1,0 +1,21 @@
+---
+description: Вызов @structure-indexer для реестра файлов и file-list.md по каталогам
+globs:
+  - "docs/**"
+---
+
+# Индекс файлов docs — вызов structure-indexer
+
+**По явному запросу** («обновить списки файлов», «refresh registry», «run structure indexer») или после крупных изменений дерева docs — вызвать **@structure-indexer**:
+
+1. Сканировать каталоги из `paths` манифеста (минимум: knowledge, intake, domains, deliverables, registry, communications, quality).
+2. Обновить **`paths.file_registry`** (по умолчанию `docs/04-registry/file-registry.md`).
+3. Опционально поддерживать **`file-list.md`** в каждом каталоге:
+   - Колонка 1: имя файла (относительно каталога)
+   - Колонка 2: краткое описание или заголовок
+
+**Без дублирующих opisanie-файлов:** один список на каталог (`file-list.md`). Legacy-дубликаты (`opisanie_*.md`) заменить однострочной ссылкой на `file-list.md`.
+
+По завершении — кратко перечислить обновлённые каталоги.
+
+*Зеркало: `.cursor/rules/045-docs-file-index.mdc`*

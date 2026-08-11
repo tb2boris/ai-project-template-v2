@@ -1,0 +1,43 @@
+---
+description: Normative compliance — GOST/spec checks using manifest compliance packs
+globs:
+  - "docs/**"
+  - "engineering/**"
+---
+
+# Normative compliance
+
+Apply when **creating** or **substantially editing** documents under paths with `normative_check: on_substantial_edit` in manifest `scope_matrix`.
+
+## Procedure
+
+1. Read applicable **`compliance.packs[]`** from `project.manifest.yaml`.
+2. Search **`paths.normative`** (and optional `references.optional_standards`) for relevant clauses.
+3. Use **`references.primary_spec`** for project-specific requirements — do not edit intake files.
+4. Output compliance in this table format:
+
+| Requirement | Document text | Compliance (Yes / No / Partial) | Reference | Comment + suggested fix |
+|-------------|---------------|----------------------------------|-------------|-------------------------|
+
+5. Quote exact clause + section when mismatch found.
+6. Do **not** edit normative library **contents**; adding/removing files in normative folder is allowed.
+
+## Pack selection
+
+Each pack in manifest defines:
+
+- `id` — pack identifier (e.g. GENERIC, TEST, INTEGRATION)
+- `standards[]` — paths to search
+- `spec_clauses[]` — optional spec section IDs
+- `typical_paths[]` — globs where pack applies
+
+If no pack matches, use **GENERIC** or ask user to add a pack to manifest.
+
+## When not to apply
+
+- `docs/01-intake/**` (reference only)
+- Minor typo fixes
+- Meeting transcripts (light editing only — see **070-technical-writing-ru**)
+- Paths with `normative_check: false`
+
+Invoke **`@gost-compliance-guard`** for dedicated GOST review.

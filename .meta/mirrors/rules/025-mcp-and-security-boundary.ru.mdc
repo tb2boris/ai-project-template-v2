@@ -1,0 +1,39 @@
+---
+description: Whitelist MCP, least privilege, границы ИБ и PII для AI-инструментов
+globs:
+  - ".cursor/**"
+  - "platform/**"
+alwaysApply: true
+---
+
+# MCP и границы информационной безопасности
+
+## Использование MCP
+
+- Только серверы из `.cursor/mcp.json` (или аналог Windsurf), согласованные в `platform/architecture/mcp-policy.md`.
+- **Минимальные права:** read-only где возможно; запись только в разрешённые пути.
+- Не добавлять новые MCP без review ИБ (см. документы deployment).
+
+## Классы данных
+
+| Класс | Правило |
+|-------|---------|
+| `restricted` | Не отправлять во внешние модели; только on-prem |
+| `internal` | Без публичных URL в fetch; ожидается audit log |
+| `public` | Внешний fetch только при approved MCP |
+
+## Запрещено без явного согласия пользователя
+
+- Передача PII, учётных данных, полных записей совещаний во внешние API.
+- `git push`, deploy, merge в защищённые ветки.
+- Чтение путей из `boundary.forbidden_paths`.
+
+## Когда AI передаёт решение человеку
+
+- Финальное согласование с заказчиком.
+- Production deploy.
+- Неснимаемые конфликты ТЗ vs нормативка (создать гэп).
+
+Governance playbook: `platform/deployment/` (при наличии).
+
+*Зеркало: `.cursor/rules/025-mcp-and-security-boundary.mdc`*

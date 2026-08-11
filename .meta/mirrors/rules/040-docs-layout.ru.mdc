@@ -1,0 +1,63 @@
+---
+description: Структура документации — layout, зоны ответственности и миграция между разделами
+globs:
+  - "docs/**"
+  - "engineering/**"
+---
+
+# Структура документации
+
+Конкретные пути — из **`project.manifest.yaml`** → `paths.*`. Layout по умолчанию (v1.0).
+
+Полное описание (назначение папок, шаги пользователя, триггеры миграции):  
+`platform/samples/document-lifecycle/STRUCTURE-AND-DOCUMENT-WORKFLOW.md`.
+
+## docs/
+
+| Сегмент | Назначение | Правки агента? |
+|---------|------------|----------------|
+| `00-knowledge/` | База знаний: глоссарий + нормативка | glossary — да; тело normative — **нет** |
+| `00-knowledge/glossary/` | Локальные термины / черновики (канон часто в registry) | да |
+| `00-knowledge/normative/` | Библиотека стандартов (add/remove OK; **не переписывать** текст) | только add/remove |
+| `00-knowledge/normative/_derived/` | Опциональные индексы из бинарной нормативки | только перегенерация |
+| `01-intake/` | **Неизменяемый** пакет заказчика | **нет** |
+| `02-domains/<domain>/` | Работа по доменам | да |
+| `02-domains/<domain>/drafts/` | Черновики до утверждения | да |
+| `03-deliverables/` | Согласованные результаты для заказчика | да (контролируемая публикация) |
+| `04-registry/` | Реестры, compliance, гэпы, встречи, термины | да |
+| `05-communications/` | Встречи: media, транскрипты, протоколы | да |
+| `06-quality/` | Приёмка, eval golden sets | да |
+
+## engineering/
+
+| Сегмент | Назначение |
+|---------|------------|
+| `integrations/` | Обмен с внешними системами |
+| `contracts/` | Спецификации API |
+| `adr/` | Архитектурные решения |
+| `src/` | Исходный код |
+
+## Временное / не-deliverable
+
+| Путь | Назначение |
+|------|------------|
+| `.meta/pipeline/` | Промежуточные артефакты пайплайнов |
+| `.archive/` | Устаревшие копии (spoke); не цель публикации |
+
+## Правила миграции
+
+1. **Intake → черновик домена** — копировать/выводить в `02-domains/<domain>/drafts/`; **не** удалять intake.
+2. **Communications → черновик / требования** — транскрипт остаётся в `05-communications/`; выводы — в `drafts/` (`requirements-from-meeting`).
+3. **Черновик → deliverable** — после human approval и (при включённом compliance) guard-прохода → `03-deliverables/`.
+4. **→ Registry** — гэпы, отчёты, термины, Excel встреч → `04-registry/**`.
+5. **Engineering** — ADR/API → `engineering/adr|contracts/`.
+6. **Supersede** — прежний deliverable → `.archive/` или версия; обновить индексы через `@structure-indexer`.
+
+## Соглашения
+
+- Черновики → `docs/02-domains/<domain>/drafts/`.
+- Утверждённые → `docs/03-deliverables/`.
+- В каждом крупном `docs/*` — `README.md` и `file-list.md`.
+- Scope: **010-project-core** + `scope_matrix`.
+
+*Зеркало: `.cursor/rules/040-docs-layout.mdc`*

@@ -1,0 +1,28 @@
+---
+description: Smart-routing hints — map user intent to skills and agents
+globs:
+  - "**"
+alwaysApply: false
+---
+
+# Smart-routing hints
+
+When the user's request matches a known scenario, suggest or invoke the documented chain. Full matrix: `platform/architecture/smart-routing-matrix.md` (create in spoke if missing).
+
+| User intent | Chain |
+|-------------|-------|
+| Plan first / confirm before work | skill `plan-gate` (`/plan-gate`) |
+| New project / init repo | skill `project-init-pipeline` (`/project-init-pipeline`) |
+| Check doc vs spec/normative | skill `compliance-check-pipeline` or `@doc-consistency-guard` |
+| Terminology check | `@terminology-consistency-guard` |
+| Search / analytical report | skill `context-search-report` or `@context-search-analyst` |
+| Meeting in mymeet.ai → process | skill `mymeet-meeting-pipeline` (`/mymeet-meeting-pipeline`) |
+| Import meeting from mymeet only | skill `mymeet-meeting-import` |
+| Transcript already on disk → Excel | skill `meeting-transcript-pipeline` |
+| Meeting → requirements diff | skill `requirements-from-meeting` |
+| Implement from spec | skill `spec-to-code-pipeline` |
+| Update file registry / file-list | `@structure-indexer` |
+| Code review before merge | `@code-reviewer` |
+| Where to put a new document | `platform/samples/document-lifecycle/STRUCTURE-AND-DOCUMENT-WORKFLOW.md` |
+
+Always confirm **human approver** role from the routing matrix before treating output as final.

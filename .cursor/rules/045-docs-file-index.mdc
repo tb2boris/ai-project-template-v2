@@ -1,0 +1,19 @@
+---
+description: Invoke @structure-indexer to maintain file registry and per-directory file lists
+globs:
+  - "docs/**"
+---
+
+# Docs file index — invoke structure-indexer
+
+**On explicit user request** (e.g. "update file lists", "refresh registry", "run structure indexer") or after major doc tree changes, invoke **@structure-indexer** to:
+
+1. Scan directories listed in manifest `paths` (at minimum: knowledge, intake, domains, deliverables, registry, communications, quality).
+2. Update **`paths.file_registry`** (default: `docs/04-registry/file-registry.md`) with repository structure summary.
+3. Optionally maintain **`file-list.md`** per scanned directory with:
+   - Column 1: file name (relative to that directory)
+   - Column 2: brief description or document title
+
+**No duplicate description files:** one maintained list per directory (`file-list.md`). If legacy duplicates exist (`opisanie_*.md`), replace with a one-line pointer to `file-list.md`.
+
+After completion, summarize which directories were updated.

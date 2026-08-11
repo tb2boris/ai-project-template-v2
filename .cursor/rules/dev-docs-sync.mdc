@@ -1,0 +1,18 @@
+---
+description: API or contract change must update spec in the same PR
+globs:
+  - "engineering/contracts/**"
+  - "engineering/src/**"
+  - "**/openapi*"
+alwaysApply: false
+---
+
+# Dev docs sync
+
+When changing public API, DTOs, or integration contracts:
+
+1. Update OpenAPI/AsyncAPI or contract file in `engineering/contracts/`.
+2. Update related ADR if architecture decision changed.
+3. Reference spec section in PR description when behavior ties to `references.primary_spec`.
+
+Do not merge API behavior changes without corresponding contract update unless user explicitly accepts drift (document in ADR).

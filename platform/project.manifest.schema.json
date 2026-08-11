@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://platform.local/schemas/project.manifest.schema.json",
+  "title": "Project Manifest",
+  "description": "Spoke project configuration for AI-assisted project repository template",
+  "type": "object",
+  "required": ["manifest_version", "project", "paths", "references", "scope_matrix", "boundary"],
+  "additionalProperties": false,
+  "properties": {
+    "manifest_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$"
+    },
+    "project": {
+      "type": "object",
+      "required": ["id", "name", "customer", "language"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "name": { "type": "string", "minLength": 1 },
+        "customer": { "type": "string", "minLength": 1 },
+        "language": { "type": "string", "enum": ["ru", "en", "mixed"] },
+        "maturity_level": {
+          "type": "string",
+          "enum": ["crawl", "walk", "run"]
+        }
+      }
+    },
+    "paths": {
+      "type": "object",
+      "required": [
+        "knowledge_base", "normative", "glossary", "intake", "domains",
+        "deliverables", "registry", "communications", "quality",
+        "engineering", "file_registry", "gaps", "compliance_reports",
+        "meetings_registry", "terminology_dir"
+      ],
+      "additionalProperties": { "type": "string" }
+    },
+    "references": {
+      "type": "object",
+      "required": ["primary_spec"],
+      "additionalProperties": false,
+      "properties": {
+        "primary_spec": { "type": "string" },
+        "project_charter": { "type": ["string", "null"] },
+        "decisions_catalog": { "type": ["string", "null"] },
+        "optional_standards": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "terminology": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "canonical_file": { "type": "string" },
+        "asr_mappings_file": { "type": ["string", "null"] },
+        "spec_definitions_section": { "type": ["string", "null"] }
+      }
+    },
+    "compliance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "packs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "standards", "typical_paths"],
+            "properties": {
+              "id": { "type": "string" },
+              "description": { "type": "string" },
+              "standards": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "spec_clauses": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "typical_paths": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "scope_matrix": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "role", "editable"],
+        "properties": {
+          "path": { "type": "string" },
+          "role": { "type": "string" },
+          "editable": { "type": "boolean" },
+          "full_ru_style": { "type": ["boolean", "string"] },
+          "normative_check": {
+            "type": "string",
+            "enum": [
+              "on_substantial_edit",
+              "reference_only",
+              "search_only",
+              "false"
+            ]
+          }
+        }
+      }
+    },
+    "integrations": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "features": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "boundary": {
+      "type": "object",
+      "required": ["workspace_only"],
+      "properties": {
+        "workspace_only": { "type": "boolean" },
+        "forbidden_paths": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

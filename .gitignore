@@ -1,0 +1,68 @@
+# Git ignore — project-template hub repository
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Spoke-only runtime content (hub keeps README / file-list / .gitkeep / examples)
+docs/01-intake/**
+!docs/01-intake/.gitkeep
+!docs/01-intake/README.md
+!docs/01-intake/file-list.md
+
+docs/02-domains/**
+!docs/02-domains/.gitkeep
+!docs/02-domains/README.md
+!docs/02-domains/file-list.md
+
+docs/03-deliverables/**
+!docs/03-deliverables/.gitkeep
+!docs/03-deliverables/README.md
+!docs/03-deliverables/file-list.md
+
+docs/04-registry/**
+!docs/04-registry/.gitkeep
+!docs/04-registry/README.md
+!docs/04-registry/file-list.md
+!docs/04-registry/gaps/.gitkeep
+!docs/04-registry/compliance-reports/.gitkeep
+!docs/04-registry/terminology/.gitkeep
+!docs/04-registry/meetings/.gitkeep
+!docs/04-registry/meetings/_example-output.xlsx
+
+docs/05-communications/**
+!docs/05-communications/.gitkeep
+!docs/05-communications/README.md
+!docs/05-communications/file-list.md
+!docs/05-communications/media/.gitkeep
+!docs/05-communications/protocols/.gitkeep
+!docs/05-communications/transcripts/.gitkeep
+!docs/05-communications/transcripts/_smoke-merged.md
+!docs/05-communications/_imports/.gitkeep
+!docs/05-communications/_imports/mymeet/.gitkeep
+
+docs/06-quality/eval/**
+!docs/06-quality/eval/golden-set/**/README.md
+
+# Pipeline temp
+.meta/pipeline/**
+!.meta/pipeline/.gitkeep
+
+# Archive
+.archive/**
+!.archive/.gitkeep
+
+# Local manifest overrides during hub development
+project.manifest.local.yaml

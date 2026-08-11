@@ -1,0 +1,19 @@
+---
+description: Тесты как контракт — TDD где уместно, CI gate
+globs:
+  - "engineering/**"
+  - "**/*test*"
+  - "**/*spec*"
+alwaysApply: false
+---
+
+# Dev tests
+
+- Новое поведение → тесты в том же change set, где возможно.
+- Тесты — контракт для public API и критичных путей.
+- Не отключать и не skip-тесты ради green CI без документированной причины.
+- Использовать существующий фреймворк и паттерны в `engineering/src/`.
+
+При генерации из OpenAPI/spec — unit-тесты на валидацию DTO и основные ветки.
+
+*Зеркало: `.cursor/rules/dev-tests.mdc`*

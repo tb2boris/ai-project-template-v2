@@ -1,0 +1,28 @@
+---
+description: Подсказки smart-routing — сопоставление намерения пользователя со skills и agents
+globs:
+  - "**"
+alwaysApply: false
+---
+
+# Подсказки умной маршрутизации
+
+Если запрос пользователя соответствует известному сценарию — предложить или вызвать документированную цепочку. Полная матрица: `platform/architecture/smart-routing-matrix.md` (создать в spoke при отсутствии).
+
+| Намерение | Цепочка |
+|-----------|---------|
+| Сначала план / подтверждение до старта | skill `plan-gate` (`/plan-gate`) |
+| Новый проект / init repo | skill `project-init-pipeline` (`/project-init-pipeline`) |
+| Проверка документа vs ТЗ/нормативка | skill `compliance-check-pipeline` или `@doc-consistency-guard` |
+| Проверка терминологии | `@terminology-consistency-guard` |
+| Поиск / аналитический отчёт | skill `context-search-report` или `@context-search-analyst` |
+| Запись совещания → протокол/задачи | upload VKS (если включён) → skill `meeting-transcript-pipeline` |
+| Совещание → diff требований | skill `requirements-from-meeting` |
+| Реализация по спецификации | skill `spec-to-code-pipeline` |
+| Обновление реестра / file-list | `@structure-indexer` |
+| Code review перед merge | `@code-reviewer` |
+| Куда класть новый документ | `platform/samples/document-lifecycle/STRUCTURE-AND-DOCUMENT-WORKFLOW.md` |
+
+Перед признанием результата финальным — подтвердить роль **утверждающего человека** из матрицы маршрутизации.
+
+*Зеркало: `.cursor/rules/012-smart-routing-hints.mdc`*

@@ -1,0 +1,14 @@
+{
+  "meeting_title": "Example status meeting",
+  "rows": [
+    {
+      "task_num": 1,
+      "task": "Example task formulation from transcript",
+      "responsible": "Role (Speaker A)",
+      "deadline": "To be agreed at next status",
+      "timecode_basis": "0:06:24, 0:06:42",
+      "completion_status": "In progress",
+      "notes": "Optional context or screenshot reference"
+    }
+  ]
+}

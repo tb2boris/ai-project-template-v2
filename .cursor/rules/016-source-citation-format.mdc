@@ -1,0 +1,45 @@
+---
+description: Standard format for source citations in reports and compliance outputs
+globs:
+  - "docs/**"
+  - "platform/**"
+alwaysApply: false
+---
+
+# Source citation format
+
+Use in compliance reports, search reports, gap cards, and agent outputs.
+
+## Inline citation
+
+```
+[source: `<relative-path>` § <section-or-line> — "<short quote>"]
+```
+
+Example:
+
+```
+[source: `docs/01-intake/specification.md` § 4.2 — "Срок сдачи этапа 1 — 30.06.2026"]
+```
+
+## Report footer block
+
+End analytical reports with:
+
+```markdown
+## Sources consulted
+| # | Path | Section | Used for |
+|---|------|---------|----------|
+| 1 | docs/... | ... | ... |
+```
+
+## Unverified block
+
+```markdown
+## Requires confirmation
+- <claim> — no matching source found in repository search
+```
+
+## Metrics
+
+For eval, count citations with valid existing paths as **cited**; claims without citation as **uncited**.

@@ -1,0 +1,20 @@
+---
+description: Изменение API/контракта — обновление spec в том же PR
+globs:
+  - "engineering/contracts/**"
+  - "engineering/src/**"
+  - "**/openapi*"
+alwaysApply: false
+---
+
+# Dev docs sync
+
+При изменении public API, DTO или интegration contracts:
+
+1. Обновить OpenAPI/AsyncAPI или contract в `engineering/contracts/`.
+2. Обновить ADR при изменении архитектурного решения.
+3. В описании PR ссылаться на раздел spec, если поведение связано с `references.primary_spec`.
+
+Не merge изменений поведения API без обновления контракта, если пользователь явно не принял drift (зафиксировать в ADR).
+
+*Зеркало: `.cursor/rules/dev-docs-sync.mdc`*

@@ -1,0 +1,44 @@
+---
+description: Project context, scope boundaries, and document-scope matrix from manifest
+globs:
+  - "**"
+alwaysApply: true
+---
+
+# Project context and scope
+
+You operate in the **current workspace root** only. Project identity and paths come from **`project.manifest.yaml`** (see **005-manifest-driven-config**).
+
+## Context boundary
+
+- Use only artifacts under this repository.
+- Respect `boundary.forbidden_paths` in the manifest (e.g. sibling workspaces, `_work`).
+- Cite documents with paths **relative to the workspace root**.
+
+## Document scope matrix
+
+Apply rules (050, 070, compliance agents) according to `scope_matrix` in the manifest:
+
+| Typical role | Editable | Full RU style | Normative check |
+|--------------|----------|---------------|-----------------|
+| `approved_deliverables` | yes | yes | on substantial edit |
+| `working_drafts` | yes | yes | on substantial edit |
+| `registers` | yes | yes | on substantial edit |
+| `meetings` | yes | light | no |
+| `customer_intake` | **no** | no | reference only |
+| `normative_library` | **no** (contents) | no | search only |
+| `engineering` | yes | no | per dev rules |
+
+**Substantial edit** = changes to meaning, structure, requirements, tables, or meeting-driven decisions.  
+**Minor edit** = typo, single phrase — fix only; no full compliance table unless requested.
+
+## Meeting-driven updates
+
+When aligning a document with a meeting transcript (`docs/05-communications/` or path from manifest):
+
+1. Extract all decisions affecting the target scope.
+2. Update every affected place in the document (not one subsection only).
+3. Verify cross-consistency across sections.
+4. Apply **070-technical-writing-ru** to changed text.
+
+Folder layout: **040-docs-layout**.

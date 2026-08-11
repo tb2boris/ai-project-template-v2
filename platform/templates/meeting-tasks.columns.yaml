@@ -1,0 +1,30 @@
+# Column schema for meeting-tasks.xlsx (hub template)
+# Source header: status meeting corporate template + «Примечание»
+
+sheet_title: Задачи
+
+columns:
+  - header: "№"
+    json_key: task_num
+    width: 6
+  - header: "Задача"
+    json_key: task
+    width: 52
+  - header: "Ответственный"
+    json_key: responsible
+    width: 22
+  - header: "Срок"
+    json_key: deadline
+    width: 28
+  - header: "Основание (тайм-код)"
+    json_key: timecode_basis
+    width: 22
+  - header: "Выполнение."
+    json_key: completion_status
+    width: 36
+  - header: "Примечание"
+    json_key: notes
+    width: 28
+
+builder_script: tools/build_meeting_task_report_xlsx.py
+template_file: platform/templates/meeting-tasks.xlsx

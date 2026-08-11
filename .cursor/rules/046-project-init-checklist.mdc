@@ -1,0 +1,26 @@
+---
+description: Spoke project initialization checklist after cloning template
+globs:
+  - "**"
+alwaysApply: false
+---
+
+# Project init checklist
+
+Run when PM/analyst sets up a **new spoke** from this template.
+
+## Steps
+
+1. [ ] Copy/rename repo; update `README.md` with project name.
+2. [ ] Fill **`project.manifest.yaml`** (all required fields per schema).
+3. [ ] Place customer intake in `docs/01-intake/` (spec, charter, contracts).
+4. [ ] Add normative standards to `docs/00-knowledge/normative/` if applicable.
+5. [ ] Create initial glossary from spec → `terminology.canonical_file`.
+6. [ ] Run **`project-init-pipeline`** or `@structure-indexer` → `file-registry.md`.
+7. [ ] Configure `.cursor/mcp.json` per `platform/deployment/AI-contour-setup.md` and security policy.
+8. [ ] Optional: install domain-packs from `platform/domain-packs/`.
+9. [ ] Record init date and Champion contact in manifest or `docs/04-registry/project-log.md`.
+
+Do not start compliance or meeting pipelines until steps 2–5 are complete.
+
+Skill: **`project-init-pipeline`**.

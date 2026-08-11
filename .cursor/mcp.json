@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "mymeet": {
+      "url": "https://mcp.mymeet.ai/mcp",
+      "headers": {
+        "Authorization": "Bearer ${env:MYMEET_API_KEY}"
+      }
+    }
+  }
+}

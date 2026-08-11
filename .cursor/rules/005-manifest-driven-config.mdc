@@ -1,0 +1,33 @@
+---
+description: Read project.manifest.yaml before resolving paths, references, or compliance packs
+globs:
+  - "**"
+alwaysApply: true
+---
+
+# Manifest-driven configuration
+
+Before resolving project-specific paths, reference documents, or compliance behavior:
+
+1. Read **`project.manifest.yaml`** at the workspace root.
+2. If missing, tell the user to copy from the template example and fill required fields; do not guess paths.
+3. Use manifest sections as follows:
+
+| Need | Manifest section |
+|------|------------------|
+| Directory paths | `paths.*` |
+| Primary spec / charter | `references.*` |
+| Glossary / ASR | `terminology.*` |
+| Normative packs | `compliance.packs[]` |
+| Edit permissions, style level | `scope_matrix[]` |
+| VKS / integrations | `integrations.*` |
+| Context boundary | `boundary.*` |
+
+## Rules
+
+- Never hardcode customer-specific file names in responses; cite manifest paths.
+- When a rule or agent mentions a generic role (e.g. `primary_spec`), resolve it via manifest.
+- If manifest and an older rule disagree, **manifest wins**.
+- Optional features (`terminology.enabled`, `integrations.vks.enabled`) — skip related workflows when `false`.
+
+See also: **010-project-core**, **040-docs-layout**.

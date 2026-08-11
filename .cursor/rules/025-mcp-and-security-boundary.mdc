@@ -1,0 +1,37 @@
+---
+description: MCP whitelist, least privilege, PII and security boundaries for AI tools
+globs:
+  - ".cursor/**"
+  - "platform/**"
+alwaysApply: true
+---
+
+# MCP and security boundary
+
+## MCP usage
+
+- Use only MCP servers listed in `.cursor/mcp.json` (or Windsurf equivalent) and approved in `platform/architecture/mcp-policy.md`.
+- **Least privilege:** read-only where possible; write only to paths allowed by policy.
+- Do not add new MCP servers without security review (see platform deployment docs).
+
+## Data classes
+
+| Class | Rule |
+|-------|------|
+| `restricted` | No upload to external models; on-prem processing only |
+| `internal` | No public URLs in fetch; audit log expected |
+| `public` | External fetch allowed only if MCP approved |
+
+## Prohibited without explicit user approval
+
+- Sending PII, credentials, or full meeting recordings to external APIs.
+- `git push`, deploy, or merge to protected branches.
+- Reading paths in `boundary.forbidden_paths`.
+
+## When AI must defer to human
+
+- Final sign-off to customer.
+- Production deployment.
+- Resolving irreconcilable spec vs normative conflicts (create gap instead).
+
+See governance playbook in `platform/deployment/` when available.

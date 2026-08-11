@@ -1,0 +1,29 @@
+---
+description: Engineering contour — README, ADR, OpenAPI context; CI and autonomy limits
+globs:
+  - "engineering/**"
+  - "src/**"
+alwaysApply: false
+---
+
+# Dev core
+
+## Context sources
+
+When working in engineering:
+
+- Read `engineering/README.md`, relevant `engineering/adr/`, and `engineering/contracts/` (OpenAPI, etc.).
+- Align with `references.primary_spec` for functional requirements.
+
+## Autonomy limits
+
+- Agent may propose code, tests, and doc updates in the working branch.
+- Agent **must not** merge, push to protected branches, or deploy without human approval.
+- Small, focused diffs; match existing project conventions.
+
+## Deliverables
+
+- API changes require contract update in same change set (see **dev-docs-sync**).
+- New modules: update README or ADR when behavior is non-obvious.
+
+Flow: Spec → implement → tests → CI → `@code-reviewer` → human merge.
